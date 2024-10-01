@@ -1,0 +1,28 @@
+{
+  "files.exclude": {
+    "**/.gitignore": true,
+    "**/.dart_tool/**": true,
+    "**/.idea/**": true,
+    "**/.metadata": true,
+    "**/analysis_options.yaml": true,
+    "**/pubspec.lock": true,
+    "**/font": true,
+    "**/image": true,
+    "**/.flutter-plugins": true,
+    "**/.flutter-plugins-dependencies": true,
+    "**/ceia_components.iml": true,
+  },
+  "[dart]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      120
+    ]
+  },
+  "dart.lineLength": 120,
+  "workbench.iconTheme": "material-icon-theme",
+}
