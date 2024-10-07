@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Project extends StampableCollection {
   String title;
+  String nomeInterno;
   CommonCompaniesInfo mainCompany;
   CommonPersonInfo coordinator;
   String srinfoCode;
@@ -48,6 +49,7 @@ class Project extends StampableCollection {
     super.createdAt,
     super.updatedAt,
     super.author,
+    required this.nomeInterno,
     required this.title,
     required this.mainCompany,
     required this.coordinator,
@@ -90,6 +92,7 @@ class Project extends StampableCollection {
       id: snapshot.id,
       docRef: snapshot.reference,
       title: data['titulo'] as String,
+      nomeInterno: data['nome_interno'] as String,
       mainCompany: CommonCompaniesInfo.fromFirestore(data['empresa_principal'] as Map<String, dynamic>),
       othersCompanies: data['empresas_outras'] != null
           ? (data['empresas_outras'] as List<Map<String, dynamic>>)
@@ -144,6 +147,7 @@ class Project extends StampableCollection {
   Map<String, dynamic> toFirestore() {
     return {
       'titulo': title,
+      'nome_interno': nomeInterno,
       'empresa_principal': mainCompany.toFirestore(),
       'empresas_outras': othersCompanies?.map((e) => e.toFirestore()).toList(),
       'codigo_srinfo': srinfoCode,
