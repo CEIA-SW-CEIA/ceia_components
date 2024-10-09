@@ -121,7 +121,7 @@ class Project extends StampableCollection {
       subcoordinator: data['subcoordenador'] != null
           ? CommonPersonInfo.fromFirestore(data['subcoordenador'] as Map<String, dynamic>)
           : null,
-      participants: (data['participantes'] as List).map((e) => CommonPersonInfo.fromFirestore(e)).toList(),
+      participants: null,
       executionStartDate:
           data['data_execucao_inicio'] != null ? DateTime.parse(data['data_execucao_inicio'] as String) : null,
       executionEndDate: data['data_execucao_fim'] != null ? DateTime.parse(data['data_execucao_fim'] as String) : null,
