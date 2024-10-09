@@ -134,7 +134,7 @@ class Project extends StampableCollection {
       intellectualProperty: data['propriedade_intelectual'] as double?,
       prospection: data['prospeccao'] as DocumentReference?,
       proposalBudget: data['orcamento_proposta'] as DocumentReference?,
-      proposal: data['proposta'] as DocumentReference,
+      proposal: data['proposta'] as DocumentReference?,
       concluded: data['concluido'] as bool,
       administrativeStatus: data['status_administrativo'],
       projectDuration: data['duracao_projeto'],
