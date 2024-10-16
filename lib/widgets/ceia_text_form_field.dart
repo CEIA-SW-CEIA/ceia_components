@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 class CEIATextFormField extends StatelessWidget {
   final String? label;
   final String? hint;
+  final String? helperText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
@@ -24,6 +25,7 @@ class CEIATextFormField extends StatelessWidget {
       {super.key,
       this.label,
       this.hint,
+      this.helperText,
       this.controller,
       this.keyboardType,
       this.onChanged,
@@ -57,6 +59,7 @@ class CEIATextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         alignLabelWithHint: alignLabelWithHint,
+        helperText: helperText,
         hintText: hint,
         focusColor: const Color(0xff00478F),
         errorText: errorText,

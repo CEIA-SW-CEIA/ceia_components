@@ -1,4 +1,5 @@
 import 'package:ceia_components/core/model/value_object/pair.dart';
+import 'package:ceia_components/utils/date_time_utils.dart';
 
 class ScholarshipHolderIdentification {
   final String motherName;
@@ -38,7 +39,7 @@ class ScholarshipHolderIdentification {
       rgConsignor: hasRg ? rg['orgao_expedidor'] : '',
       rgUfConsignor: hasRg ? Pair.fromMap(rg['uf_expedidor'], firstKey: 'id', secondKey: 'sigla') : null,
       passportNumber: hasPassport ? passport['numero'] : '',
-      passportExpirationDate: hasPassport ? DateTime.parse(passport['validade']) : null,
+      passportExpirationDate: hasPassport ? DateTimeUtils.timestampToDateTime(passport['validade']) : null,
       pisPasepNit: map['pis_pasep_nit'],
     );
   }
