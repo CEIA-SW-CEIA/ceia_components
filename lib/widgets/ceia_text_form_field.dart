@@ -21,26 +21,27 @@ class CEIATextFormField extends StatelessWidget {
   final bool readOnly;
   final bool enabled;
 
-  const CEIATextFormField(
-      {super.key,
-      this.label,
-      this.hint,
-      this.helperText,
-      this.controller,
-      this.keyboardType,
-      this.onChanged,
-      this.errorText,
-      this.minLines,
-      this.maxLines,
-      this.inputMask,
-      this.alignLabelWithHint,
-      this.suffixIcon,
-      this.validator,
-      this.inputAction,
-      this.onFieldSubmitted,
-      this.obscureText = false,
-      this.readOnly = false,
-      this.enabled = true});
+  const CEIATextFormField({
+    super.key,
+    this.label,
+    this.hint,
+    this.helperText = '',
+    this.controller,
+    this.keyboardType,
+    this.onChanged,
+    this.errorText,
+    this.minLines,
+    this.maxLines,
+    this.inputMask,
+    this.alignLabelWithHint,
+    this.suffixIcon,
+    this.validator,
+    this.inputAction,
+    this.onFieldSubmitted,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.enabled = true,
+  });
 
   @override
   Widget build(BuildContext context) {
