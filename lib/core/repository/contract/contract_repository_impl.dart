@@ -47,18 +47,18 @@ class ContractRepositoryImpl implements ContractRepository {
     DocumentReference scholarshipHolder,
   ) async {
     try {
-      // Faz a consulta na coleção 'contratos' para buscar todos os contratos associados ao bolsista
-      final snapshots = await FirebaseFirestore.instance
-          .collection('contratos')
+      // Usando collectionGroup para buscar contratos em todas as subcoleções 'contrato'
+      final querySnapshot = await FirebaseFirestore.instance
+          .collectionGroup('contrato')
           .where('bolsista', isEqualTo: scholarshipHolder)
           .get();
 
-      if (snapshots.docs.isEmpty) {
+      if (querySnapshot.docs.isEmpty) {
         return CEIAResponse.success(data: [], message: 'Bolsista não possui contratos.');
       }
 
       // Mapeia os documentos para uma lista de objetos ContractDocument
-      final contracts = snapshots.docs.map((contract) => ContractDocument.fromFirestore(contract)).toList();
+      final contracts = querySnapshot.docs.map((doc) => ContractDocument.fromFirestore(doc)).toList();
 
       return CEIAResponse.success(data: contracts);
     } catch (e) {
