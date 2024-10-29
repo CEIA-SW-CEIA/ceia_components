@@ -1,5 +1,4 @@
 import 'package:ceia_components/core/model/firebase_entity/contract_document.dart';
-import 'package:ceia_components/core/model/system_entity/contract.dart';
 import 'package:ceia_components/models/ceia_response.dart';
 import 'package:ceia_components/utils/logger_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,6 +47,7 @@ class ContractRepositoryImpl implements ContractRepository {
     DocumentReference scholarshipHolder,
   ) async {
     try {
+      // Usando collectionGroup para buscar contratos em todas as subcoleções 'contrato'
       final querySnapshot = await FirebaseFirestore.instance
           .collectionGroup('contrato')
           .where('bolsista', isEqualTo: scholarshipHolder)
@@ -57,12 +57,8 @@ class ContractRepositoryImpl implements ContractRepository {
         return CEIAResponse.success(data: [], message: 'Bolsista não possui contratos.');
       }
 
-      // Mapeia os documentos para uma lista de Contract
-      final contracts = querySnapshot.docs.map((doc) {
-        final contractDoc = ContractDocument.fromFirestore(doc);
-        final contract = Contract.fromDocument(contractDoc);
-        return contract;
-      }).toList();
+      // Mapeia os documentos para uma lista de objetos ContractDocument
+      final contracts = querySnapshot.docs.map((doc) => ContractDocument.fromFirestore(doc)).toList();
 
       return CEIAResponse.success(data: contracts);
     } catch (e) {
