@@ -1,4 +1,5 @@
 import 'package:ceia_components/core/model/firebase_entity/contract_document.dart';
+import 'package:ceia_components/core/model/system_entity/contract.dart';
 import 'package:ceia_components/models/ceia_response.dart';
 import 'package:ceia_components/utils/logger_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,10 +58,32 @@ class ContractRepositoryImpl implements ContractRepository {
         return CEIAResponse.success(data: [], message: 'Bolsista não possui contratos.');
       }
 
-      // Mapeia os documentos para uma lista de objetos ContractDocument
-      final contracts = querySnapshot.docs.map((doc) => ContractDocument.fromFirestore(doc)).toList();
+      // Mapeia os documentos para uma lista com o contrato e o nome do projeto associado
+      final contractsWithProjectNames = await Future.wait(querySnapshot.docs.map((doc) async {
+        final contractDoc = ContractDocument.fromFirestore(doc);
+        final contract = Contract.fromDocument(contractDoc);
 
-      return CEIAResponse.success(data: contracts);
+        // Obter a referência do projeto a partir do caminho do documento
+        final projectDocRef = doc.reference.parent.parent;
+
+        String projectTitle = 'Título indisponível';
+
+        if (projectDocRef != null) {
+          final projectSnapshot = await projectDocRef.get();
+          if (projectSnapshot.exists && projectSnapshot.data() != null) {
+            final projectData = projectSnapshot.data() as Map<String, dynamic>;
+            projectTitle = projectData['titulo'] ?? 'Título indisponível';
+          }
+        }
+
+        // Retorna um mapa com o contrato e o nome do projeto
+        return {
+          'contract': contract,
+          'projectTitle': projectTitle,
+        };
+      }).toList());
+
+      return CEIAResponse.success(data: contractsWithProjectNames);
     } catch (e) {
       LoggerUtils.showError(e);
       return CEIAResponse.error(message: 'Houve um erro interno ao buscar os contratos do bolsista.');
