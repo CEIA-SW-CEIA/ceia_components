@@ -48,7 +48,6 @@ class ContractRepositoryImpl implements ContractRepository {
     DocumentReference scholarshipHolder,
   ) async {
     try {
-      // Usando collectionGroup para buscar contratos em todas as subcoleções 'contrato'
       final querySnapshot = await FirebaseFirestore.instance
           .collectionGroup('contrato')
           .where('bolsista', isEqualTo: scholarshipHolder)
@@ -58,32 +57,14 @@ class ContractRepositoryImpl implements ContractRepository {
         return CEIAResponse.success(data: [], message: 'Bolsista não possui contratos.');
       }
 
-      // Mapeia os documentos para uma lista com o contrato e o nome do projeto associado
-      final contractsWithProjectNames = await Future.wait(querySnapshot.docs.map((doc) async {
+      // Mapeia os documentos para uma lista de Contract
+      final contracts = querySnapshot.docs.map((doc) {
         final contractDoc = ContractDocument.fromFirestore(doc);
         final contract = Contract.fromDocument(contractDoc);
+        return contract;
+      }).toList();
 
-        // Obter a referência do projeto a partir do caminho do documento
-        final projectDocRef = doc.reference.parent.parent;
-
-        String projectTitle = 'Título indisponível';
-
-        if (projectDocRef != null) {
-          final projectSnapshot = await projectDocRef.get();
-          if (projectSnapshot.exists && projectSnapshot.data() != null) {
-            final projectData = projectSnapshot.data() as Map<String, dynamic>;
-            projectTitle = projectData['titulo'] ?? 'Título indisponível';
-          }
-        }
-
-        // Retorna um mapa com o contrato e o nome do projeto
-        return {
-          'contract': contract,
-          'projectTitle': projectTitle,
-        };
-      }).toList());
-
-      return CEIAResponse.success(data: contractsWithProjectNames);
+      return CEIAResponse.success(data: contracts);
     } catch (e) {
       LoggerUtils.showError(e);
       return CEIAResponse.error(message: 'Houve um erro interno ao buscar os contratos do bolsista.');
