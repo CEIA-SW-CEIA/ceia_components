@@ -66,4 +66,26 @@ class ContractRepositoryImpl implements ContractRepository {
       return CEIAResponse.error(message: 'Houve um erro interno ao buscar os contratos do bolsista.');
     }
   }
+
+  /// Obtém todos os contratos de todos os projetos de um bolsista.
+  @override
+  Future<CEIAResponse> getAllContractsForScholarshipHolder(DocumentReference scholarshipHolder) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collectionGroup('contrato')
+          .where('bolsista', isEqualTo: scholarshipHolder)
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return CEIAResponse.success(data: <List<ContractDocument>>[]);
+      }
+
+      final contracts = querySnapshot.docs.map((doc) => ContractDocument.fromFirestore(doc)).toList();
+
+      return CEIAResponse.success(data: contracts);
+    } catch (e) {
+      LoggerUtils.showError(e);
+      return CEIAResponse.error(message: 'Houve um erro interno ao buscar os contratos do bolsista.');
+    }
+  }
 }
