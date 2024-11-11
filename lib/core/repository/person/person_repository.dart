@@ -5,6 +5,7 @@ abstract class PersonRepository {
   Future<CEIAResponse> read(String id);
   Future<CEIAResponse> readAll();
   Future<CEIAResponse> fetchByCpf(String cpf);
+  Future<CEIAResponse> fetchByEmail(String email);
   Future<CEIAResponse> create({
     required String name,
     required String cpf,

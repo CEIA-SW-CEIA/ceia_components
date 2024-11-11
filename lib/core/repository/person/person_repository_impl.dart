@@ -46,6 +46,25 @@ class PersonRepositoryImpl extends PersonRepository {
   }
 
   @override
+  Future<CEIAResponse> fetchByEmail(String email) async {
+    try {
+      final personSnapshot = await _firestore.collection('comum_pessoa').where('email', isEqualTo: email).get();
+
+      if (personSnapshot.docs.isEmpty) {
+        return CEIAResponse.error(message: 'Nenhuma pessoa encontrada com o email informado.');
+      }
+
+      final person = PersonDocument.fromFirestore(personSnapshot.docs.first);
+
+      return CEIAResponse.success(data: person);
+    } catch (e) {
+      LoggerUtils.showError(e);
+
+      return CEIAResponse.error(message: 'Houve um erro ao buscar a pessoa pelo email.');
+    }
+  }
+
+  @override
   Future<CEIAResponse> create({
     required String name,
     required String cpf,
