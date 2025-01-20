@@ -16,7 +16,7 @@ class CEIAText extends StatelessWidget {
   */
 
   /// Para títulos grandes (H1).
-  /// - Tamanho: 27px
+  /// - Tamanho: 24px
   /// - Peso: Bold
   /// - Uso: Cabeçalhos principais.
   ///
@@ -32,14 +32,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 27,
+          fontSize: 24,
           fontWeight: fontWeight ?? FontWeight.bold,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para títulos médios (H2).
-  /// - Tamanho: 27px
+  /// - Tamanho: 24px
   /// - Peso: Medium
   /// - Uso: Subsecções importantes.
   ///
@@ -55,14 +55,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 27,
+          fontSize: 24,
           fontWeight: fontWeight ?? FontWeight.w500,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para títulos pequenos (H3).
-  /// - Tamanho: 21px
+  /// - Tamanho: 18px
   /// - Peso: Bold
   /// - Uso: Títulos menores.
   ///
@@ -78,14 +78,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 21,
+          fontSize: 18,
           fontWeight: fontWeight ?? FontWeight.bold,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para subtítulos grandes (H4).
-  /// - Tamanho: 18px
+  /// - Tamanho: 14px
   /// - Peso: SemiBold
   /// - Uso: Introduções e descrições importantes.
   ///
@@ -101,14 +101,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 18,
+          fontSize: 14,
           fontWeight: fontWeight ?? FontWeight.w600,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para subtítulos médios (H5).
-  /// - Tamanho: 16px
+  /// - Tamanho: 14px
   /// - Peso: SemiBold
   /// - Uso: Descrições detalhadas.
   ///
@@ -124,14 +124,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: fontWeight ?? FontWeight.w600,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para subtítulos pequenos (H6).
-  /// - Tamanho: 12px
+  /// - Tamanho: 10px
   /// - Peso: Medium
   /// - Uso: Labels e instruções específicas.
   ///
@@ -147,14 +147,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: fontWeight ?? FontWeight.w500,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para corpo de texto grandes.
-  /// - Tamanho: 16px
+  /// - Tamanho: 14px
   /// - Peso: Regular
   /// - Uso: Texto principal.
   ///
@@ -170,14 +170,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: fontWeight ?? FontWeight.w400,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para corpo de texto médios.
-  /// - Tamanho: 14px
+  /// - Tamanho: 12px
   /// - Peso: Regular
   /// - Uso: Textos de suporte.
   ///
@@ -193,14 +193,14 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: fontWeight ?? FontWeight.w400,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
         );
 
   /// Para corpo de texto pequenos.
-  /// - Tamanho: 12px
+  /// - Tamanho: 10px
   /// - Peso: Regular
   /// - Uso: Rodapés e notas.
   ///
@@ -216,7 +216,7 @@ class CEIAText extends StatelessWidget {
     Color? color,
     FontWeight? fontWeight,
   }) : style = TextStyle(
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: fontWeight ?? FontWeight.w400,
           fontFamily: 'Montserrat',
           color: color ?? Colors.black,
