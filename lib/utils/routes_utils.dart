@@ -20,7 +20,7 @@ class RoutesUtils {
   }
 
   static void redirectToAuthModule() async {
-    final authUri = Uri.parse('https://swceia-dev-authentication.web.app/');
+    final authUri = Uri.parse('https://ceiaapp-autenticacao.web.app/');
 
     if (kIsWeb) {
       // Código específico para a web
