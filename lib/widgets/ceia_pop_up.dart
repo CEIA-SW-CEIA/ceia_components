@@ -12,7 +12,7 @@ class CeiaPopUp extends StatelessWidget {
   ///Pop up de alerta, o paramêtro [message] recebe qual mensagem vai aparecer no pop-up
   const CeiaPopUp.alert({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_alert_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_alert_image.png",
     this.title = 'Alerta!',
     required this.message,
     this.action,
@@ -21,7 +21,7 @@ class CeiaPopUp extends StatelessWidget {
   ///Pop up de confirmação, o paramêtro [message] recebe qual mensagem vai aparecer no pop-up
   const CeiaPopUp.sucess({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_confirmation_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_confirmation_image.png",
     this.title = 'Confirmação!',
     required this.message,
     this.action,
@@ -30,7 +30,7 @@ class CeiaPopUp extends StatelessWidget {
   ///Pop up de erro, o paramêtro [message] recebe qual mensagem vai aparecer no pop-up
   const CeiaPopUp.error({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_error_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_error_image.png",
     this.title = 'Erro!',
     required this.message,
     this.action,
@@ -39,7 +39,7 @@ class CeiaPopUp extends StatelessWidget {
   ///Pop up de informação, o paramêtro [message] recebe qual mensagem vai aparecer no pop-up
   const CeiaPopUp.information({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_info_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_info_image.png",
     this.title = 'Informação!',
     required this.message,
     this.action,
@@ -48,7 +48,7 @@ class CeiaPopUp extends StatelessWidget {
   ///Pop up de dúvida, o paramêtro [message] recebe qual mensagem vai aparecer no pop-up
   const CeiaPopUp.doubt({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_doubt_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_doubt_image.png",
     this.title = 'Dúvida!',
     required this.message,
     this.action,
@@ -58,7 +58,7 @@ class CeiaPopUp extends StatelessWidget {
   ///o paramêtro [action] diz qual ação será realizada pelo pop-up antes de fechar
   const CeiaPopUp.confirm({
     super.key,
-    this.imagePath = "ceia_components/image/ceia_issue_image.png",
+    this.imagePath = "packages/ceia_components/image/ceia_issue_image.png",
     this.title = 'Questão!',
     required this.message,
     this.action,
