@@ -1,100 +1,102 @@
-import 'package:ceia_components/widgets/ceia_button.dart';
+import 'package:ceia_components/widgets/ceia_pop_up.dart';
 import 'package:ceia_components/widgets/ceia_text.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DialogUtils {
   DialogUtils._();
 
-  static Future showInformativeSuccessDialog(BuildContext context, String message) {
+  ///Constroi o pop-up de alerta, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário, o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
+  static Future showInformativeAlertDialog(BuildContext context, String message, {bool barrierDismissible = true}) {
     return _showDialog(
       context,
-      'Sucesso!',
-      message,
-      [
-        CEIAButton.large(
-          onPressed: () => Navigator.pop(context),
-          text: 'Ok',
-          height: 45,
-        )
-      ],
+      barrierDismissible: barrierDismissible,
+      CeiaPopUp.alert(
+        message: message,
+        action: null,
+      ),
     );
   }
 
+  ///Constroi o pop-up de sucesso, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
+  static Future showInformativeSuccessDialog(BuildContext context, String message, {bool barrierDismissible = true}) {
+    return _showDialog(
+      context,
+      barrierDismissible: barrierDismissible,
+      CeiaPopUp.sucess(
+        message: message,
+        action: null,
+      ),
+    );
+  }
+
+  ///Constroi o pop-up de erro, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
   static Future showInformativeErrorDialog(BuildContext context, String message, {bool barrierDismissible = true}) {
     return _showDialog(
       context,
-      'Ops!',
-      message,
-      [
-        CEIAButton.large(
-          onPressed: () => Navigator.pop(context),
-          text: 'Ok',
-          height: 45,
-        )
-      ],
       barrierDismissible: barrierDismissible,
+      CeiaPopUp.error(
+        message: message,
+        action: null,
+      ),
     );
   }
 
-  static showConfirmDialog({
-    required BuildContext context,
-    required String title,
-    required String message,
-    required Function() onConfirm,
-  }) {
+  ///Constroi o pop-up de informação, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
+  static Future showInformativeInformation(BuildContext context, String message, {bool barrierDismissible = true}) {
     return _showDialog(
       context,
-      title,
-      message,
-      [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CEIAButton(
-              onPressed: () => Navigator.pop(context),
-              color: const Color(0xff949CB2),
-              text: 'Cancelar',
-              height: 45,
-            ),
-            const SizedBox(width: 16),
-            CEIAButton(
-              onPressed: () {
-                onConfirm();
-                context.pop();
-              },
-              text: 'Continuar',
-              height: 45,
-            ),
-          ],
-        )
-      ],
+      barrierDismissible: barrierDismissible,
+      CeiaPopUp.information(
+        message: message,
+        action: null,
+      ),
     );
   }
 
-  static Future _showDialog(BuildContext context, String title, String message, List<Widget>? actions,
+  ///Constroi o pop-up de dúvida, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
+  static Future showInformativeDoubt(BuildContext context, String message, {bool barrierDismissible = true}) {
+    return _showDialog(
+      context,
+      barrierDismissible: barrierDismissible,
+      CeiaPopUp.doubt(
+        message: message,
+        action: null,
+      ),
+    );
+  }
+
+  ///Constroi o pop-up de confirmação, o paramêtro [message] representa a mensagem que
+  ///será exibida para o usuário, o paramêtro [confirm] é a função que será executada
+  ///quando o usuário clica em confirmar,o paramêtro  [barrierDismissible] determina se o
+  ///clique fora da tela fecha ou não o pop-up
+  static Future showConfirmDialog(BuildContext context, String message, Function() confirm,
       {bool barrierDismissible = true}) {
+    return _showDialog(
+      context,
+      barrierDismissible: barrierDismissible,
+      CeiaPopUp.confirm(
+        message: message,
+        action: confirm,
+      ),
+    );
+  }
+
+  //Constroi a estrutura do pop-up
+  static Future _showDialog(BuildContext context, Widget popUp, {bool barrierDismissible = true}) {
     return showDialog(
       barrierDismissible: barrierDismissible,
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        title: Center(
-            child: Column(
-          children: [
-            Text(title),
-            const Divider(),
-          ],
-        )),
-        content: Container(
-          constraints: const BoxConstraints(maxWidth: 650, maxHeight: 500),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
-            child: CEIAText.bodyLarge(text: message),
-          ),
-        ),
-        actions: actions,
-      ),
+      builder: (context) => popUp,
     );
   }
 
