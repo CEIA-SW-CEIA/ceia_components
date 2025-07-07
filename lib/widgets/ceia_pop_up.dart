@@ -114,8 +114,14 @@ class CeiaPopUp extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            CEIAText.bodyLarge(
-              text: message,
+            SizedBox(
+              height: 40,
+              width: 190,
+              child: Flexible(
+                child: CEIAText.bodyLarge(
+                  text: message,
+                ),
+              ),
             ),
           ],
         )
