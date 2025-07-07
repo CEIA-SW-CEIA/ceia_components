@@ -1,4 +1,5 @@
 import 'package:ceia_components/widgets/ceia_button_new.dart';
+import 'package:ceia_components/widgets/ceia_selectable_text.dart';
 import 'package:ceia_components/widgets/ceia_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -118,7 +119,7 @@ class CeiaPopUp extends StatelessWidget {
               height: 40,
               width: 190,
               child: Flexible(
-                child: CEIAText.bodyLarge(
+                child: CeiaSelectableText.bodyLarge(
                   text: message,
                 ),
               ),
