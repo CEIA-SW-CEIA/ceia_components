@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 class ApiClient {
   final Dio _dio;
 
-  ApiClient({required String baseUrl})
+  ApiClient({required String baseUrl, List<Interceptor>? interceptors})
       : _dio = Dio(
           BaseOptions(
             baseUrl: baseUrl,
@@ -14,7 +14,11 @@ class ApiClient {
             connectTimeout: const Duration(seconds: 20),
             receiveTimeout: const Duration(seconds: 20),
           ),
-        );
+        ) {
+    if (interceptors != null) {
+      _dio.interceptors.addAll(interceptors);
+    }
+  }
 
   Future<Response> get(
     String path, {
