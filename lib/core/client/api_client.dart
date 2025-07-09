@@ -53,4 +53,23 @@ class ApiClient {
       rethrow;
     }
   }
+
+  Future<Response> put(
+    String path, {
+    Map<String, dynamic>? data,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.put(
+        path,
+        data: data,
+        options: options,
+      );
+      return response;
+    } on DioException catch (e) {
+      LoggerUtils.showError(e.response?.data ?? e.message ?? 'Erro desconhecido');
+
+      rethrow;
+    }
+  }
 }
