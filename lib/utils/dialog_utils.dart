@@ -50,7 +50,8 @@ class DialogUtils {
   ///Constroi o pop-up de informação, o paramêtro [message] representa a mensagem que
   ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
   ///clique fora da tela fecha ou não o pop-up
-  static Future showInformativeInformation(BuildContext context, String message, {bool barrierDismissible = true}) {
+  static Future showInformativeInformationDialog(BuildContext context, String message,
+      {bool barrierDismissible = true}) {
     return _showDialog(
       context,
       barrierDismissible: barrierDismissible,
@@ -64,7 +65,7 @@ class DialogUtils {
   ///Constroi o pop-up de dúvida, o paramêtro [message] representa a mensagem que
   ///será exibida para o usuário,o paramêtro  [barrierDismissible] determina se o
   ///clique fora da tela fecha ou não o pop-up
-  static Future showInformativeDoubt(BuildContext context, String message, {bool barrierDismissible = true}) {
+  static Future showInformativeDoubtDialog(BuildContext context, String message, {bool barrierDismissible = true}) {
     return _showDialog(
       context,
       barrierDismissible: barrierDismissible,
