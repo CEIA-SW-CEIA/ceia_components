@@ -1,0 +1,79 @@
+import 'package:ceia_components/utils/logger_utils.dart';
+import 'package:dio/dio.dart';
+
+class ApiClient {
+  final Dio _dio;
+
+  ApiClient({required String baseUrl, List<Interceptor>? interceptors})
+      : _dio = Dio(
+          BaseOptions(
+            baseUrl: baseUrl,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            connectTimeout: const Duration(seconds: 20),
+            receiveTimeout: const Duration(seconds: 20),
+          ),
+        ) {
+    if (interceptors != null) {
+      _dio.interceptors.addAll(interceptors);
+    }
+  }
+
+  Future<Response> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      return response;
+    } on DioException catch (e) {
+      LoggerUtils.showError(e.response?.data ?? e.message ?? 'Erro desconhecido');
+      rethrow;
+    }
+  }
+
+  Future<Response> post(
+    String path, {
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      return response;
+    } on DioException catch (e) {
+      LoggerUtils.showError(e.response?.data ?? e.message ?? 'Erro desconhecido');
+      rethrow;
+    }
+  }
+
+  Future<Response> put(
+    String path, {
+    Map<String, dynamic>? data,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.put(
+        path,
+        data: data,
+        options: options,
+      );
+      return response;
+    } on DioException catch (e) {
+      LoggerUtils.showError(e.response?.data ?? e.message ?? 'Erro desconhecido');
+
+      rethrow;
+    }
+  }
+}
