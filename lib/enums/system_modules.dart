@@ -1,0 +1,4 @@
+enum SystemModules {
+  projectModule,
+  scholarShipHolderModule,
+}
