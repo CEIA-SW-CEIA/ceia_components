@@ -71,30 +71,51 @@ class CeiaPopUp extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      child: SizedBox(
-        width: 320,
-        height: 174,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: 174,
+          minWidth: 270,
+          maxWidth: 320,
+          maxHeight: 284,
+        ),
+        child: Stack(
+          fit: StackFit.loose,
           children: [
             //Botão de fechar
             _buildCloseButton(context),
-            //Sessão que contem a imagem, o título e o texto do pop-up
-            _buildImageAndText(imagePath, title, message),
-            const SizedBox(
-              height: 16,
-            ),
-            //Botões presentes na parte inferior do pop-up
-            _buildActions(action, context)
+            //Conteúdo principal
+            _buildMainContent(context),
           ],
         ),
       ),
     );
   }
 
+  //Constroi o conteúdo principal: título, texto, botões de ação e ícone
+  Widget _buildMainContent(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(
+          height: 40,
+        ),
+        //Sessão que contem a imagem, o título e o texto do pop-up
+        _buildScrollableReponsiveRegion(
+          _buildImageAndText(imagePath, title, message),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        //Botões presentes na parte inferior do pop-up
+        _buildActions(action, context)
+      ],
+    );
+  }
+
   //Constroi o conteúdo principal de pop-up
   Widget _buildImageAndText(String imagePath, String title, String message) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
@@ -108,23 +129,25 @@ class CeiaPopUp extends StatelessWidget {
         const SizedBox(
           width: 17,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CEIAText.titleSmall(text: title),
-            const SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-              height: 40,
-              width: 190,
-              child: CeiaSelectableText.bodyLarge(
-                maxLines: 2,
-                text: message,
-                overflow: TextOverflow.clip,
+        //Flexible para a coluna crescer conforme os filhos
+        Flexible(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CEIAText.titleSmall(text: title),
+              const SizedBox(
+                height: 8,
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: CeiaSelectableText.bodyLarge(
+                  maxLines: 10,
+                  text: message,
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );
@@ -132,19 +155,36 @@ class CeiaPopUp extends StatelessWidget {
 
   //Constroi o botão de fechar
   Widget _buildCloseButton(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: const Icon(
-            Icons.close,
-            size: 14,
+    return Positioned(
+      top: 0,
+      right: 0,
+      child: IconButton(
+        onPressed: () {
+          context.pop();
+        },
+        icon: const Icon(
+          Icons.close,
+          size: 14,
+        ),
+      ),
+    );
+  }
+
+  //Constroi uma região que aumenta conforme o tamanho dos widgets filhos e que é escrolável
+  Widget _buildScrollableReponsiveRegion(Widget child) {
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 15,
+        ),
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            primary: true,
+            child: child,
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 
@@ -152,8 +192,13 @@ class CeiaPopUp extends StatelessWidget {
   Widget _buildActions(Function()? action, BuildContext context) {
     if (action != null) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 54),
+        padding: const EdgeInsets.only(
+          right: 24,
+          left: 24,
+          bottom: 20,
+        ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             CeiaButtonNew(
               borderColor: Colors.grey,
@@ -184,14 +229,17 @@ class CeiaPopUp extends StatelessWidget {
         ),
       );
     }
-    return CeiaButtonNew(
-      borderRadius: 5,
-      text: 'Fechar',
-      width: 97,
-      height: 26,
-      onPressed: () {
-        context.pop();
-      },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: CeiaButtonNew(
+        borderRadius: 5,
+        text: 'Fechar',
+        width: 97,
+        height: 26,
+        onPressed: () {
+          context.pop();
+        },
+      ),
     );
   }
 }
