@@ -71,12 +71,17 @@ class ValidationUtils {
 
       int month = parsedDate.month;
       int day = parsedDate.day;
+      int year = parsedDate.year;
 
       if (month < 1 || month > 12) {
         return false;
       }
 
       if (day < 1 || day > 31) {
+        return false;
+      }
+
+      if (year < 1900 || year > 2050) {
         return false;
       }
     } catch (e) {
