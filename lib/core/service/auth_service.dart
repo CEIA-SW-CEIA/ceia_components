@@ -83,4 +83,30 @@ class AuthService {
       throw Exception("Falha ao buscar dados do usuário: $e");
     }
   }
+
+  /// Define o token em memória e opcionalmente persiste.
+  Future<void> setToken(String token, {bool persist = true}) async {
+    _token = token;
+    if (persist) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_tokenKey, token);
+    }
+  }
+
+  /// Garante que _currentUser está carregado se houver token.
+  Future<CurrentUser?> ensureCurrentUser() async {
+    if (_token == null) return null;
+    if (_currentUser != null) return _currentUser;
+    _currentUser = await fetchCurrentUser();
+    return _currentUser;
+  }
+
+  /// Adota o token vindo da URL (usado na primeira entrada pós-login).
+  /// Seta em memória, persiste e limpa o query param da URL.
+  Future<void> adoptTokenFromUrl(String token, {bool cleanUrl = true}) async {
+    await setToken(token, persist: true);
+    if (cleanUrl) {
+      _cleanUrlToken();
+    }
+  }
 }
